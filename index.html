@@ -140,6 +140,8 @@ h2{color:var(--ink2)}
 #fd video{display:block;width:100%;height:auto;aspect-ratio:4/5;background:#000;border-radius:18px;box-shadow:0 0 0 1px rgba(255,255,255,.22)}
 #fd p{display:none;margin:0;padding:28px 24px;background:#1c1c1c;border-radius:18px;color:#c8c8c8}
 #fd.err video{display:none}#fd.err p{display:block}
+/* The label column is wide enough for the longest label, so it never runs into the name. */
+@media(min-width:821px){.row{grid-template-columns:212px 1fr}}
 </style></head><body><div class="wrap">
 <header><span class="demo">Recruitment Engine · a desk assistant for recruiters. This demo runs on a made-up desk: every name, hospital and number is fictional. It’s a design so far, not a finished product.</span><h1>What came in.<br>Who to get back to.</h1><button class="btn watch" id="wf" type="button">&#9654;&#xFE0E; Watch the one-minute film</button></header>
 <nav role="tablist" aria-label="Demo sections">
