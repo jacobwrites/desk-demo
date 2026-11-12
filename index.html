@@ -1,0 +1,320 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Recruitment Engine demo</title><style>
+:root{--paper:#f5f3ee;--card:#fbfaf7;--ink:#141414;--ink2:#555;--ink3:#8a8a85;--rule:rgba(20,20,20,.10);--flag:#b4530a;--flagbg:rgba(180,83,10,.10);--serif:'Iowan Old Style','Charter','Palatino Linotype',Georgia,serif;--sans:-apple-system,'SF Pro Text','Helvetica Neue',system-ui,sans-serif;--ease:cubic-bezier(.23,1,.32,1)}
+@media(prefers-color-scheme:dark){:root{--paper:#0f0f0e;--card:#171716;--ink:#f1efe9;--ink2:#a9a8a2;--ink3:#74736e;--rule:rgba(255,255,255,.09);--flag:#f0a15a;--flagbg:rgba(240,161,90,.12)}}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:32px 24px 80px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+h1{font:500 26px/1.15 var(--serif);letter-spacing:-.02em;margin:0}
+.demo{color:var(--ink3);font-size:12px}
+nav{display:flex;gap:4px;margin:22px 0 0;border-bottom:1px solid var(--rule);overflow-x:auto}
+nav button{font:500 14px var(--sans);color:var(--ink3);background:none;border:0;padding:10px 14px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .15s}
+nav button:hover{color:var(--ink)}nav button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--ink)}
+button:focus-visible,summary:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:6px}
+.panel{display:none;animation:in .25s var(--ease)}.panel.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+h2{font:600 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:36px 0 14px}
+.lede{font:400 19px/1.45 var(--serif);color:var(--ink2);max-width:56ch;margin:28px 0 0;text-wrap:pretty}
+.card{background:var(--card);border-radius:14px;box-shadow:0 0 0 1px var(--rule),0 1px 2px rgba(0,0,0,.04)}
+.today{list-style:none;margin:0;padding:0}.today>li{padding:20px 24px;border-bottom:1px solid var(--rule)}.today>li:last-child{border:0}
+.row{display:grid;grid-template-columns:168px 1fr;gap:16px}.row b{font:500 19px/1.3 var(--serif);letter-spacing:-.01em}.row p{margin:2px 0 0;color:var(--ink2);text-wrap:pretty}
+.tag{display:inline-block;align-self:start;justify-self:start;font-size:11px;font-weight:600;color:var(--flag);background:var(--flagbg);padding:3px 9px;border-radius:99px;white-space:nowrap}
+.btn{font:500 12.5px var(--sans);color:var(--ink);background:transparent;border:0;box-shadow:0 0 0 1px var(--rule);border-radius:8px;padding:6px 12px;cursor:pointer;margin-top:10px;transition:transform .12s var(--ease),background-color .15s}
+.btn:hover{background:rgba(127,127,127,.08)}.btn:active{transform:scale(.97)}
+.draft{display:none;margin-top:12px;padding:14px 16px;border-radius:10px;background:var(--paper);box-shadow:inset 0 0 0 1px var(--rule);color:var(--ink2);font-size:13.5px}.draft.on{display:block}
+.draft small{display:block;color:var(--ink3);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.two .card{padding:16px 18px}.two b{font:500 16px var(--serif)}.two p{margin:4px 0 0;color:var(--ink2)}
+.sh{font-size:10.5px;color:var(--ink3);letter-spacing:.04em}
+.thead,.srow>summary{display:grid;grid-template-columns:210px 1fr 140px;gap:22px;align-items:center}
+.thead{padding:0 8px 6px}.track{display:grid;grid-template-columns:repeat(6,1fr)}
+.srow{border-top:1px solid var(--rule)}.srow:last-of-type{border-bottom:1px solid var(--rule)}
+.srow>summary{list-style:none;cursor:pointer;padding:18px 8px;transition:background-color .15s}.srow>summary::-webkit-details-marker{display:none}.srow>summary:hover{background:rgba(127,127,127,.06)}
+.who h3{font:500 18px/1.25 var(--serif);margin:0}.who p{margin:0;color:var(--ink2)}.who .tag{margin-top:6px}
+.cell{min-height:34px;display:flex;gap:4px;align-items:center;border-top:2px solid var(--rule);padding-top:10px;margin-top:6px}.cell.r{border-top-color:var(--ink)}
+.chip{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--paper);font:600 10.5px/30px var(--sans);text-align:center;border:0;padding:0;cursor:pointer;transition:transform .12s var(--ease)}
+.chip:hover{transform:scale(1.1)}.chip:active{transform:scale(.97)}
+.chip.q{background:var(--flagbg);color:var(--flag);box-shadow:inset 0 0 0 1.5px var(--flag)}.chip.h{background:transparent;color:var(--ink3);box-shadow:inset 0 0 0 1.5px var(--ink3)}
+.chip.sel{outline:2px solid var(--ink);outline-offset:2px}
+.when{display:flex;flex-direction:column;color:var(--ink2);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}.warn{color:var(--flag);font-weight:600}
+.legend{display:flex;gap:18px;flex-wrap:wrap;color:var(--ink3);font-size:12px;margin-top:14px;align-items:center}.legend i{display:inline-block;width:16px;height:16px;border-radius:50%;vertical-align:middle;margin-right:6px;background:var(--ink)}.legend i.q{background:var(--flagbg);box-shadow:inset 0 0 0 1.5px var(--flag)}.legend i.h{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink3)}
+#note{margin-top:20px;padding:20px 24px;display:none}#note.on{display:block;animation:in .25s var(--ease)}
+#note h3{font:500 22px var(--serif);margin:0 0 2px}#note .meta{color:var(--ink3);margin:0 0 12px}
+#note dl{display:grid;grid-template-columns:150px 1fr;gap:6px 16px;margin:0}#note dt{color:var(--ink3)}#note dd{margin:0;color:var(--ink2)}
+.sw{display:flex;align-items:center;gap:10px;margin:0 0 16px;color:var(--ink2)}.sw input{width:16px;height:16px;accent-color:var(--ink)}
+.src{display:none;font-size:10.5px;color:var(--ink3);margin-left:4px;font-weight:600}.on-src .src{display:inline}.gap{color:var(--flag);font-weight:600}
+table{border-collapse:collapse;width:100%}th{text-align:left;font:600 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);padding:8px 12px 8px 0}td{padding:10px 12px 10px 0;border-top:1px solid var(--rule);vertical-align:top;color:var(--ink2)}td:first-child{color:var(--ink);font-weight:500;white-space:nowrap}
+.report{padding:28px 32px;overflow-x:auto}.report h3{font:500 24px/1.2 var(--serif);margin:0 0 4px}.report .d{color:var(--flag);font-weight:600;font-size:12px}.report h4{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:24px 0 8px}
+.flow{display:grid;grid-template-columns:1fr 24px 1.5fr 24px 1fr}.col{display:flex;flex-direction:column;gap:10px}.col>h3{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:0 0 2px}.ar{display:flex;align-items:center;justify-content:center;color:var(--ink3)}
+.box{background:var(--card);border-radius:12px;box-shadow:0 0 0 1px var(--rule);padding:13px 15px}.box b{font:500 16px/1.3 var(--serif);display:block}.box p{margin:2px 0 0;color:var(--ink2);font-size:13px}
+.ag{display:grid;grid-template-columns:32px 1fr;gap:10px}.n{width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--paper);font:600 12px/26px var(--sans);text-align:center}
+.you{background:var(--ink);box-shadow:none}.you b,.you p{color:var(--paper)}.you p{opacity:.75}.chk{box-shadow:inset 0 0 0 1.5px var(--flag)}.chk .n{background:var(--flagbg);color:var(--flag);box-shadow:inset 0 0 0 1.5px var(--flag)}
+.no{box-shadow:inset 0 0 0 1.5px var(--flag)}.no b{color:var(--flag)}.two ul{margin:8px 0 0;padding-left:18px;color:var(--ink2)}
+.foot{margin-top:48px;color:var(--ink3);font-size:12px}
+@media(max-width:820px){.row{grid-template-columns:1fr}.two{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.ar{transform:rotate(90deg);padding:4px}.pipe{overflow-x:auto}.pipe>*{min-width:760px}#note dl{grid-template-columns:1fr}.report{padding:20px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+:root,:root:not([data-theme=x]){--paper:#000;--card:#1c1c1c;--ink:#fff;--ink2:#a6a6a6;--ink3:#7c7c7c;--rule:rgba(255,255,255,.14);--flag:#ffb15e;--flagbg:rgba(255,177,94,.14);--serif:'Helvetica Neue','SF Pro Display',-apple-system,Inter,system-ui,sans-serif}
+body{font-size:15px}
+.wrap{max-width:1120px;padding:48px 32px 96px}
+header{display:block}.demo{display:block;font-size:15px;color:var(--ink3);margin-bottom:20px}
+h1{font:700 clamp(44px,8vw,88px)/1 var(--serif);letter-spacing:-.04em;margin:0;text-wrap:balance}
+h1,.row b,.box b,.who h3,#note h3,.report h3,.two b{font-weight:700;letter-spacing:-.025em}
+.row b{font-size:22px}.who h3{font-size:21px}.box b{font-size:17px}#note h3{font-size:26px}.report h3{font-size:30px}
+nav{border:0;gap:10px;margin:36px 0 0;padding-bottom:4px}
+nav button{border-radius:999px;padding:11px 22px;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--rule);margin:0;border:0;font-weight:600;transition:background-color .15s,transform .12s var(--ease)}
+nav button:hover{background:rgba(255,255,255,.08)}nav button:active{transform:scale(.97)}
+nav button[aria-selected=true]{background:#fff;color:#000;box-shadow:none}
+.lede{font:400 clamp(20px,2.4vw,26px)/1.4 var(--sans);color:var(--ink2);max-width:42ch;margin:44px 0 0}
+h2{font-size:12px;margin:56px 0 18px}
+.card,.today.card{border-radius:24px;box-shadow:none;background:var(--card)}
+.box{border-radius:20px;box-shadow:none;background:var(--card);padding:16px 18px}
+.you{background:#fff}.you b,.you p{color:#000}.you p{opacity:.7}
+.no,.chk{box-shadow:none}.no b{color:var(--ink)}
+.btn{border-radius:999px;padding:9px 18px;font-weight:600;box-shadow:inset 0 0 0 1.5px var(--rule)}
+.draft{border-radius:16px;background:#000}
+.report{padding:36px 40px}
+.today>li{padding:26px 30px}
+.chip{background:#fff;color:#000}.chip.q{background:var(--flagbg);color:var(--flag)}
+.legend i{background:#fff}
+.srow>summary:hover{background:rgba(255,255,255,.04)}
+.n{background:#fff;color:#000}
+.tag{border-radius:999px}
+@media(max-width:820px){.wrap{padding:28px 18px 72px}.report{padding:22px}.today>li{padding:20px}}
+.hint{color:var(--ink2);margin:-6px 0 14px}
+.prop{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+.prop b{font-size:19px;display:block}.prop p{margin:2px 0 0;color:var(--ink2)}.prop .acts{display:flex;gap:8px}.prop .btn{margin:0}
+.btn.y{background:#fff;color:#000;box-shadow:none}.btn.y:hover{background:#e8e8e8}
+.done{color:var(--ink3)}.done .btn{margin:0 0 0 12px}
+.cmd{display:flex;gap:10px;margin:28px 0 6px}
+.cmd input{flex:1;min-width:0;background:var(--card);color:var(--ink);border:0;border-radius:999px;padding:15px 24px;font:500 16px var(--sans);box-shadow:inset 0 0 0 1.5px var(--rule)}
+.cmd input:focus-visible{outline:2px solid #fff;outline-offset:2px}.cmd input::placeholder{color:var(--ink3)}
+.cm{color:var(--ink3);margin:6px 0 0;min-height:22px}.cm.ok{color:var(--ink)}
+.mv{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.mv .lab2{width:100%;font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.mv .btn{margin:0;padding:8px 16px}.mv .btn[aria-pressed=true]{background:#fff;color:#000;box-shadow:none}
+.chip.pulse{animation:pulse .9s var(--ease) 2}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.75)}100%{box-shadow:0 0 0 16px rgba(255,255,255,0)}}
+.parked{display:flex;flex-wrap:wrap;gap:10px;color:var(--ink3)}.parked .pk{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:999px;padding:6px 8px 6px 6px;color:var(--ink2)}
+.parked .chip{background:#000;color:var(--ink3);box-shadow:inset 0 0 0 1.5px var(--ink3);width:28px;height:28px;line-height:28px;font-size:10px;cursor:default}.parked .btn{margin:0;padding:5px 12px}
+.log{list-style:none;margin:0;padding:6px 24px}.log li{padding:11px 0;border-top:1px solid var(--rule);color:var(--ink2)}.log li:first-child{border:0}.log time{color:var(--ink3);font-variant-numeric:tabular-nums;margin-right:12px}.log b{color:var(--ink)}
+#toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#fff;color:#000;border-radius:999px;padding:12px 14px 12px 22px;font-weight:600;display:flex;gap:14px;align-items:center;transition:opacity .2s,transform .25s var(--ease);z-index:9}
+#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}#toast button{background:#000;color:#fff;border:0;border-radius:999px;padding:7px 16px;font:600 13px var(--sans);cursor:pointer}
+/* contrast pass: white pills carry the actions and the key items */
+:root{--ink2:#c8c8c8;--ink3:#9c9c9c;--rule:rgba(255,255,255,.18)}
+h2{color:var(--ink2)}
+.row>.tag{background:#fff;color:#000;font-size:12px;padding:5px 12px}
+.row .btn,.cmd .btn{background:#fff;color:#000;box-shadow:none}.row .btn:hover,.cmd .btn:hover{background:#e6e6e6}
+#props{background:#fff;color:#000}#props>li{border-color:rgba(0,0,0,.12)}
+#props .prop p,#props .done{color:#444}
+#props .btn{color:#000;box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.35);background:transparent}
+#props .btn.y{background:#000;color:#fff;box-shadow:none}#props .btn.y:hover{background:#2a2a2a}
+.hint{color:var(--ink2)}
+.sh,.legend{color:var(--ink2)}.sh{font-size:11px;font-weight:600}
+.srow>summary:hover{background:rgba(255,255,255,.07)}
+.watch{margin:28px 0 0;background:#fff;color:#000;box-shadow:none;font-size:16px;padding:13px 26px}.watch:hover{background:#e6e6e6}
+#fd{border:0;padding:0;background:#000;border-radius:24px;max-width:min(1000px,94vw);width:100%;overflow:hidden}#fd::backdrop{background:rgba(0,0,0,.8)}
+#fd video{display:block;width:100%;height:auto}#fd .x{position:absolute;top:12px;right:12px;margin:0;background:#fff;color:#000;box-shadow:none}
+.report{--ink:#000;--ink2:#3d3d3d;--ink3:#666;--rule:rgba(0,0,0,.14);--card:#f0f0f0;--flag:#9a4a08;--flagbg:rgba(154,74,8,.12);background:#fff;color:#000}
+.two .card:first-child{--ink:#000;--ink2:#3d3d3d;--ink3:#666;--rule:rgba(0,0,0,.14);background:#fff;color:#000}
+
+#know{background:#fff;color:#000}#know>li{border-color:rgba(0,0,0,.12)}
+#know .prop p,#know .done{color:#444}
+#know .btn{color:#000;box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.35);background:transparent}
+#know .btn.y{background:#000;color:#fff;box-shadow:none}#know .btn.y:hover{background:#2a2a2a}
+.prop .pt{flex:1 1 320px;min-width:0}.prop .acts{flex-wrap:wrap}
+#know .prop p.catch,#props .prop p.catch{color:#8a4106;font-weight:600}
+.srcx{font-size:12px;font-weight:600;color:#6b6b6b;white-space:nowrap}
+#know .draft,#props .draft{flex-basis:100%;margin-top:4px;background:#f0f0f0;color:#333;box-shadow:none}
+#know .draft small,#props .draft small{color:#666}
+@media(max-width:820px){#toast{left:12px;right:12px;transform:translateY(20px);justify-content:space-between}#toast.on{transform:none}}
+#apps{background:#fff;color:#000}#apps>li{border-color:rgba(0,0,0,.12)}
+#apps .prop p,#apps .done{color:#444}
+#apps .btn{color:#000;box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.35);background:transparent}
+#apps .btn.y{background:#000;color:#fff;box-shadow:none}#apps .btn.y:hover{background:#2a2a2a}
+#apps .prop p.catch,#props .prop p.catch{color:#8a4106;font-weight:600}
+#apps .draft,#props .draft{flex-basis:100%;margin-top:4px;background:#f0f0f0;color:#333;box-shadow:none}
+#apps .draft small,#props .draft small{color:#666}
+</style></head><body><div class="wrap">
+<header><span class="demo">Recruitment Engine · a desk assistant for recruiters. This demo runs on a made-up desk: every name, hospital and number is fictional.</span><h1>What came in.<br>Who's waiting on you.</h1></header>
+<nav role="tablist" aria-label="Demo sections">
+<button role="tab" aria-selected="true" data-t="brief" id="tb-brief">Morning brief</button>
+<button role="tab" aria-selected="false" data-t="pipe" id="tb-pipe">Pipeline</button>
+<button role="tab" aria-selected="false" data-t="rep" id="tb-rep">Shortlist report</button>
+<button role="tab" aria-selected="false" data-t="how" id="tb-how">How it works</button></nav>
+
+<section class="panel on" id="p-brief" role="tabpanel">
+<p class="lede">Every morning at 8, and again at 6. What came in, who it matches, and who is waiting on you. It reads, drafts and flags. It never replies for you.</p>
+<h2 id="ah">New applicant</h2>
+<p class="hint">Her email arrived at 06:12. By your 8am brief it was read, filed and matched. She is on file, so it can suggest her for future roles once her consent covers it.</p>
+<ul class="today card" id="apps"></ul>
+<h2 id="kh">New role</h2>
+<p class="hint">The brief from Pinnacle Bay arrived overnight. Before you advertise, these are people already in your own emails, CVs and call notes. It suggests; nothing changes until you say yes.</p>
+<ul class="today card" id="know"></ul>
+<h2>Tuesday 17 Nov · waiting on you</h2>
+<ul class="today card">
+<li><div class="row"><span class="tag">Client owed an update</span><div><b>Keppel Reach · Medical Director</b><p>Last update 7 days ago; the shortlist meeting is Friday. Consent to share is missing for two candidates.</p><button class="btn" data-d="d1">See the draft</button><div class="draft" id="d1">Hi Helen, a quick update on the Medical Director search. We have three candidates on the shortlist and one on hold, and I'll send the full shortlist report ahead of Friday. Two questions: is a candidate without budget responsibility workable for this role, and what relocation support can you offer? [questions for client]<small>Drafted for you to edit and send. Not sent.</small></div></div></div></li>
+<li><div class="row"><span class="tag">Candidate owed an answer</span><div><b>Dr Jonas Lindqvist · Medical Director, Singapore</b><p>On 11 Nov he asked what relocation support is offered. Six days on, your files show no answer to him yet.</p><button class="btn" data-d="d2">See the draft</button><div class="draft" id="d2">Hi Jonas, I haven't forgotten your question about relocation support. I'm checking with the hospital and will come back to you by [day for you to confirm].<small>Drafted for you to edit and send. Not sent.</small></div></div></div></li>
+<li><div class="row"><span class="tag">Replied</span><div><b>Dr Samuel Okafor · Medical Director, Singapore</b><p>Confirmed Thursday at 11:00. Not yet in your diary.</p></div></div></li></ul>
+<h2 id="ph">Gone quiet on you</h2>
+<p class="hint">One polite chase, or park them? A chase draft is ready for each. You send it.</p>
+<ul class="today card" id="props"></ul>
+<h2>Also this morning</h2>
+<div class="two"><div class="card"><b>What I learned yesterday</b><p>You told me not to open with "I hope you're well". Logged, and applied to every draft since.</p></div>
+<div class="card"><b>A question I couldn't answer</b><p>Keppel Reach asked for "the salary range we discussed". I can't find one in your files. That one's yours.</p></div></div>
+</section>
+
+<section class="panel" id="p-pipe" role="tabpanel">
+<p class="lede">Every live role on one page. Click any candidate's initials to see where they stand.</p>
+<form id="cmd" class="cmd" autocomplete="off"><input id="cin" placeholder="Tell it what to do, e.g. park Eastley, or move Okafor to Interview" aria-label="Tell the assistant what to do"><button class="btn" type="submit" style="margin:0">Do it</button></form><p id="cmsg" class="cm" aria-live="polite">Demo: try park Eastley, move Okafor to Interview, or add Alvarez to Brisbane.</p>
+<h2>Live roles</h2>
+<div class="pipe"><div class="thead"><div></div><div class="track" id="hd"></div><div></div></div><div id="rows"></div>
+<div class="legend"><span><i></i>Active</span><span><i class="q"></i>Quiet 7+ days</span><span><i class="h"></i>Held</span></div></div>
+<div class="card" id="note" aria-live="polite"></div>
+<h2>Parked</h2><div id="parked" class="parked"></div>
+<h2>Activity</h2><ul id="log" class="log card"></ul>
+<h2>Matches to open roles</h2>
+<div class="two"><div class="card"><b>Dr Sian Alvarez → Emergency Veterinarian, Brisbane</b><p>Told you in March she wants to move to Australia. Consent is 8 months old: re-confirm before approaching.</p></div><div class="card"><b>Dr Priya Nair → Associate Veterinarian, Vancouver</b><p>She applied for this role by email this morning. Small-animal vet, four years qualified. Your call.</p></div></div>
+</section>
+
+<section class="panel" id="p-rep" role="tabpanel">
+<p class="lede">Drafted from the CVs and call notes, for you to edit. Switch on the sources to see where each fact came from.</p>
+<label class="sw"><input type="checkbox" id="src"> Show where each fact came from</label>
+<div class="card report" id="report">
+<h3>Keppel Reach Veterinary Specialists: Medical Director, Singapore</h3><span class="d">DRAFT for review. Not for the client yet.</span>
+<h4>In short</h4><p style="color:var(--ink2);max-width:62ch">We have three candidates on the shortlist and one on hold. Two are available within three months. The main trade-off is breadth: the candidate who has opened a new hospital site works where there is no emergency service, and the candidate board-certified in emergency care has no budget responsibility.</p>
+<h4>The candidates</h4>
+<table><tr><th></th><th>Dr Amara Marlowe</th><th>Dr Samuel Okafor</th><th>Dr Jonas Lindqvist</th></tr>
+<tr><td>Now</td><td>Medical Director, 24-hour emergency and referral hospital, Melbourne<span class="src">[CV]</span></td><td>Clinical Director, multi-specialty referral centre, UK<span class="src">[CV]</span></td><td>Head of Emergency and Critical Care, university hospital, Sweden<span class="src">[CV]</span></td></tr>
+<tr><td>Strong on</td><td>Built the clinical audit programme from scratch<span class="src">[CV, call]</span></td><td>Opened a second hospital site<span class="src">[CV]</span></td><td>Board-certified in emergency and critical care<span class="src">[CV]</span></td></tr>
+<tr><td>Lighter on</td><td>Has not worked in Asia<span class="src">[CV]</span></td><td>No emergency service at his current hospital<span class="src">[CV]</span></td><td>No budget responsibility<span class="src">[CV]</span></td></tr>
+<tr><td>Notice</td><td>3 months, negotiable to 2<span class="src">[call 12 Nov]</span></td><td>6 months<span class="src">[call]</span></td><td>3 months<span class="src">[call]</span></td></tr>
+<tr><td>Relocation</td><td>Open to Singapore; wants school places for two children<span class="src">[call 12 Nov]</span></td><td>Ready to move; partner would need a visa<span class="src">[call]</span></td><td>Asked what support is offered<span class="src">[email 11 Nov]</span></td></tr>
+<tr><td>Licence for Singapore</td><td class="gap">[to confirm]</td><td class="gap">[to confirm]</td><td class="gap">[to confirm]</td></tr>
+<tr><td>Package</td><td class="gap">[to confirm]</td><td class="gap">[to confirm]</td><td class="gap">[to confirm]</td></tr>
+<tr><td>Your view</td><td class="gap">[yours to add]</td><td class="gap">[yours to add]</td><td class="gap">[yours to add]</td></tr></table>
+<h4>Two things we need from you</h4><p style="color:var(--ink2)">Is a candidate with no budget responsibility a deal-breaker, or something the hospital director can cover? <span class="gap">[question for client]</span></p><p style="color:var(--ink2)">What relocation support can you offer? One candidate has asked. <span class="gap">[question for client]</span></p>
+<h4>Before this goes out</h4><p style="color:var(--ink2)"><span class="gap">[Consent to share not yet recorded for Marlowe and Lindqvist.]</span> It flags this before the report goes out.</p>
+</div></section>
+
+<section class="panel" id="p-how" role="tabpanel">
+<p class="lede">An assistant for your desk, not another system to learn. It reads what already lands in your email, calls and folders, and does the paperwork. You stay the recruiter.</p>
+<h2>How the work moves</h2>
+<div class="flow">
+<div class="col"><h3>What comes in</h3><div class="box"><b>Your email</b><p>Replies, CVs, client messages</p></div><div class="box"><b>Your calls</b><p>Transcripts or your own notes</p></div><div class="box"><b>Your folders</b><p>CVs, briefs, past roles</p></div><div class="box"><b>Public sources</b><p>Company sites, reports, press, pay surveys</p></div></div>
+<div class="ar">→</div>
+<div class="col"><h3>The desk team</h3>
+<div class="box ag"><span class="n">1</span><div><b>Reader</b><p>Reads CVs, emails and call transcripts. Writes up each candidate, fact by fact. Gaps stay gaps.</p></div></div>
+<div class="box ag"><span class="n">2</span><div><b>Clerk</b><p>Keeps one file per role and the pipeline current. Matches each new CV to your open roles, and each new role to the people on file. Spots who is waiting on you, who has gone quiet and whose consent is missing. Writes your brief.</p></div></div>
+<div class="box ag"><span class="n">3</span><div><b>Researcher</b><p>Target companies, org maps and pay benchmarks from public sources, each one cited.</p></div></div>
+<div class="box ag"><span class="n">4</span><div><b>Drafter</b><p>Shortlist reports, client updates and draft chases, in your style. Every fact tagged to its source.</p></div></div></div>
+<div class="ar">→</div>
+<div class="col"><h3>What you get</h3><div class="box"><b>Brief, 8am and 6pm</b><p>What came in, and who is waiting on you</p></div><div class="box"><b>Pipeline page</b><p>Every role at a glance</p></div><div class="box"><b>Drafts to edit</b><p>Reports, updates, chases</p></div><div class="box you"><b>You</b><p>Read, change, approve, send. Only you contact anyone.</p></div></div></div>
+<h2>What it is, and what it isn't</h2>
+<div class="two"><div class="card"><b>It does</b><ul><li>Matches new CVs to open roles, and new roles to people on file</li><li>Reads and files CVs and call notes</li><li>Keeps each role and the pipeline current</li><li>Flags who is waiting on you, who has gone quiet, and missing consent</li><li>Drafts documents and emails for you to edit</li><li>Keeps a note of your corrections and applies them</li><li>Researches companies and pay from public sources</li></ul></div>
+<div class="card no"><b>It never</b><ul><li>Sends an email or message</li><li>Contacts a candidate or a client</li><li>Searches or scrapes LinkedIn</li><li>Makes a decision about a person. It suggests; you decide</li><li>Replaces your CRM. It sits beside whatever you use</li></ul></div></div>
+<p class="foot">What it can't see: WhatsApp, LinkedIn messages, and anything that isn't written down.</p>
+<p class="foot" style="margin-top:8px">Candidate files stay on your computer. Text is processed by Claude under your own account to do the work.</p>
+</section>
+</div>
+<div id="toast" role="status"><span id="tt"></span><button id="tu">Undo</button></div>
+<script>
+const ST=['Brief','Longlist','Approached','Shortlist','Interview','Offer'];
+const $=q=>document.querySelector(q),$$=q=>[...document.querySelectorAll(q)],ini=n=>n.split(' ').map(x=>x[0]).join('');
+const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const V=[
+{c:'Keppel Reach Veterinary Specialists',r:'Medical Director',loc:'Singapore',kind:'retained',base:3,up:7,due:'Shortlist meeting Fri 20 Nov',f:'Client update overdue'},
+{c:'Pinnacle Bay Emergency Vets',r:'Emergency Veterinarian',loc:'Brisbane',kind:'contingent',base:0,up:0,upText:'Brief arrived overnight',due:'Nothing advertised yet',f:'New role'},
+{c:'Alder Inlet Veterinary Clinic',r:'Associate Veterinarian',loc:'Vancouver',kind:'contingent',base:2,up:4,due:'CVs due 24 Nov',f:'No reply from your approach in 12 days'},
+{c:'Lantern Peak Veterinary Referrals',r:'Head of Nursing',loc:'Hong Kong',kind:'retained',base:4,up:1,due:'Panel Wed 18 Nov',f:''}];
+let C=[
+{n:'Amara Marlowe',dr:1,v:0,st:3,q:0,now:'Medical Director, 24-hour emergency and referral hospital, Melbourne',status:'Last contact 12 Nov (call)',next:'Client meeting w/c 23 Nov',note:'Open to Singapore; wants school places for two children. Consent to share not yet recorded.'},
+{n:'Samuel Okafor',dr:1,v:0,st:3,q:0,now:'Clinical Director, multi-specialty referral centre, UK',status:'Last contact 16 Nov (email)',next:'Second call Thu 19 Nov, 11:00',note:'Opened a second hospital site. Partner would need a visa. Consent recorded.'},
+{n:'Jonas Lindqvist',dr:1,v:0,st:3,q:0,now:'Head of Emergency and Critical Care, university hospital, Sweden',status:'Last contact 11 Nov (email). His question is unanswered',next:'Answer his relocation question',note:'Asked what relocation support is offered. Consent not yet recorded.'},
+{n:'Rory Haldane',dr:1,v:0,st:2,q:8,held:1,now:'Sold his three-hospital group in 2025, Auckland',status:'Held. Last contact 9 Nov, no reply',next:'Chase once or park',note:'Owner-operator; has not worked inside a larger group.'},
+{n:'Tom Eastley',dr:1,v:2,st:2,q:12,now:'Small-animal vet, six years qualified, Bristol',status:'Approached 5 Nov, no reply',next:'Chase or park',note:''},
+{n:'Hana Whitcombe',v:3,st:4,q:0,now:'Senior nurse manager, referral hospital, London',status:'Interview. Last contact 16 Nov',next:'Panel Wed 18 Nov',note:'Prep note ready.'},
+{n:'Gareth Pym',v:3,st:4,q:0,now:'Head nurse, three-site group, Dublin',status:'Interview. Last contact 15 Nov',next:'Panel Wed 18 Nov',note:''},
+{n:'Priya Nair',dr:1,pool:1,v:2,st:1,q:0,how:'She applied herself',now:'Small-animal vet, four years qualified, Cape Town',status:'Applied by email this morning, CV attached',next:'Reply to her',note:'Saw the Vancouver advert on LinkedIn. Her CV does not say whether she can work in Canada.'},
+{n:'Sian Alvarez',dr:1,pool:1,v:1,st:1,q:0,now:'Emergency vet, 24-hour hospital, Leeds',status:'On file since March',next:'Re-confirm consent before approaching',note:'Told you in March she wants to move to Australia.'},
+{n:'Leila Farouk',dr:1,pool:1,v:1,st:1,q:0,now:'Emergency vet, Glasgow',status:'On file since June',next:'Review before approaching',note:'Reached final interview for your Sydney emergency role in June.'},
+{n:'Callum Reyes',dr:1,pool:1,v:1,st:1,q:0,now:'Locum emergency vet, Perth',status:'On file since September',next:'Check his visa before approaching',note:'Already in Australia as a locum. Said his visa runs to February.'}];
+let sel=null,logN=0,undoFn=null,toastT=0;
+const clock=()=>{const m=12+logN*2;return '08:'+String(m).padStart(2,'0')};
+function log(t){logN++;const li=document.createElement('li');li.innerHTML='<time>'+clock()+'</time>'+t;$('#log').prepend(li)}
+function toast(t,u){$('#tt').textContent=t;undoFn=u;$('#tu').style.display=u?'':'none';$('#toast').classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>$('#toast').classList.remove('on'),6500)}
+$('#tu').onclick=()=>{if(undoFn){undoFn();undoFn=null}$('#toast').classList.remove('on')};
+const nm=p=>(p.dr?'Dr ':'')+p.n;
+function moveTo(p,st){const o={st:p.st,held:p.held,parked:p.parked};p.parked=false;p.held=0;p.st=st;sel=p;
+  log(nm(p)+' moved to <b>'+ST[st]+'</b>.');draw(true);return()=>{Object.assign(p,o);log('Undone: '+nm(p)+' back to '+(p.parked?'Parked':ST[p.st])+'.');draw()}}
+function park(p){const o={parked:p.parked};p.parked=true;if(sel===p)sel=null;log(nm(p)+' <b>parked</b>. Reason and history kept in the role file.');draw();return()=>{Object.assign(p,o);log('Undone: '+nm(p)+' back on the role.');draw()}}
+function addTo(p,vi){if(!p.pool&&p.v===vi&&!p.parked){sel=p;draw(true);return()=>{}}
+ const how=p.how||'Not approached';const fresh={v:vi,st:1,q:0,held:0,parked:false,pool:0,status:'Longlist, added today. '+how,next:p.how?'Reply to her':'Review before approaching'};
+ if(p.pool){const o=Object.assign({},p);Object.assign(p,fresh);sel=p;log(nm(p)+' added to the <b>'+V[vi].loc+'</b> longlist. '+how+'.');draw(true);return()=>{Object.assign(p,o);if(sel===p)sel=null;log('Undone: '+nm(p)+' removed from the '+V[vi].loc+' longlist.');draw()}}
+ const q=Object.assign({},p,fresh);C.push(q);sel=q;log(nm(q)+' added to the <b>'+V[vi].loc+'</b> longlist. '+how+'.');draw(true);return()=>{C=C.filter(x=>x!==q);if(sel===q)sel=null;log('Undone: '+nm(q)+' removed from the '+V[vi].loc+' longlist.');draw()}}
+function draw(pulse){
+ const open=$$('.srow').map(d=>d.open);
+ const rows=$('#rows');rows.innerHTML='';
+ V.forEach((v,vi)=>{const cs=C.filter(c=>c.v===vi&&!c.parked&&!c.pool);const reach=Math.max(v.base,...cs.map(c=>c.st));
+  const cells=ST.map(()=>'');
+  cs.forEach(c=>{const cls=c.held?'h':(c.q>=7?'q':'');cells[c.st]+='<button class="chip '+cls+(pulse&&c===sel?' pulse':'')+(c===sel?' sel':'')+'" data-i="'+C.indexOf(c)+'" aria-label="'+esc(nm(c))+'">'+ini(c.n)+'</button>'});
+  const d=document.createElement('details');d.className='srow';if(open[vi])d.open=true;
+  d.innerHTML='<summary><div class="who"><h3>'+v.c+'</h3><p>'+v.r+' · '+v.loc+' · '+v.kind+'</p>'+(v.f?'<span class="tag">'+v.f+'</span>':'')+'</div><div class="track">'+cells.map((c,i)=>'<div class="cell '+(i<=reach?'r':'')+'">'+c+'</div>').join('')+'</div><div class="when"><span class="'+(v.up>=7?'warn':'')+'">'+(v.upText||('Client updated '+v.up+'d ago'))+'</span><span>'+v.due+'</span></div></summary>';rows.appendChild(d)});
+ const pk=C.filter(c=>c.parked);
+ $('#parked').innerHTML=pk.length?pk.map(c=>'<span class="pk"><span class="chip">'+ini(c.n)+'</span>'+esc(nm(c))+' · '+esc(V[c.v].r+', '+V[c.v].loc)+'<button class="btn" data-un="'+C.indexOf(c)+'">Bring back</button></span>').join(''):'<span>Nobody parked.</span>';
+ note()}
+function note(){const n=$('#note'),p=sel;if(!p||p.parked||p.pool){n.classList.remove('on');return}
+ n.innerHTML='<h3>'+esc(nm(p))+'</h3><p class="meta">'+V[p.v].c+' · '+V[p.v].r+', '+V[p.v].loc+'</p><dl><dt>Now</dt><dd>'+esc(p.now)+'</dd><dt>Status</dt><dd>'+esc(p.status)+'</dd><dt>Next step</dt><dd>'+esc(p.next)+'</dd><dt>Notes</dt><dd>'+(esc(p.note)||'None yet.')+'</dd></dl><div class="mv"><span class="lab2">Move to</span>'+ST.map((s,i)=>'<button class="btn" data-mv="'+i+'" aria-pressed="'+(i===p.st&&!p.held)+'">'+s+'</button>').join('')+'<button class="btn" data-mv="park">Park</button></div>';n.classList.add('on')}
+$('#rows').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;e.preventDefault();sel=C[b.dataset.i];draw();$('#note').scrollIntoView({block:'nearest',behavior:'smooth'})});
+$('#note').addEventListener('click',e=>{const b=e.target.closest('[data-mv]');if(!b||!sel)return;const p=sel,v=b.dataset.mv;
+ if(v==='park'){const u=park(p);toast(nm(p)+' parked.',u)}else{const st=+v;if(st===p.st&&!p.held)return;const u=moveTo(p,st);toast(nm(p)+' moved to '+ST[st]+'.',u)}});
+$('#parked').addEventListener('click',e=>{const b=e.target.closest('[data-un]');if(!b)return;const p=C[b.dataset.un];p.parked=false;sel=p;log(nm(p)+' brought back onto the '+V[p.v].loc+' role.');draw(true)});
+const byName=k=>C.find(c=>c.n.includes(k));
+const G={
+ app:{el:'#apps',head:'#ah',yes:'Add to longlist',no:'Not this one',dl:'See the reply draft',done:'Added to the Vancouver longlist.',declined:'Noted. She stays on file.',toast:' added to the Vancouver longlist.',
+  logNo:x=>'You passed on '+x.t+' for Vancouver. She stays on file.',
+  title:n=>'New applicant · Associate Veterinarian, Vancouver'+(n?'':' · dealt with')},
+ know:{el:'#know',head:'#kh',yes:'Add to longlist',no:'Not this one',dl:'',done:'Added to the longlist. Not approached.',declined:'Noted. It won’t suggest them for this role again.',toast:' added to the Brisbane longlist.',
+  logNo:x=>'You passed on '+x.t+' for Brisbane. It will not suggest them for this role again.',
+  title:n=>'New role · Emergency Veterinarian, Brisbane · '+(n?n+(n===1?' person':' people')+' you already know':'all dealt with')},
+ quiet:{el:'#props',head:'#ph',yes:'Park',no:'Not yet',dl:'See the chase draft',done:'Parked.',declined:'Noted. It won’t suggest this again for 14 days.',toast:' parked.',
+  logNo:x=>'You kept '+x.t+' on the role. It will not suggest parking again for 14 days.',
+  title:n=>'Gone quiet on you · '+(n?n+' waiting':'all dealt with')}};
+const P=[
+{g:'app',id:'a1',t:'Dr Priya Nair',sub:'Small-animal vet, four years qualified, Cape Town',why:'Emailed about your Vancouver role, CV attached. She saw the advert on LinkedIn.',src:'email and CV, today',catch:'Her CV doesn’t say whether she can work in Canada.',d:'Hi Priya, thank you for getting in touch about the Vancouver role, and for sending your CV. Could we find twenty minutes for a call this week? [times for you to add]',run:()=>addTo(byName('Nair'),2)},
+{g:'know',id:'k1',t:'Dr Sian Alvarez',sub:'Emergency vet, 24-hour hospital, Leeds',why:'Told you in March she wants to move to Australia.',src:'call note, 12 Mar',catch:'Consent is 8 months old. Re-confirm before you approach.',run:()=>addTo(byName('Alvarez'),1)},
+{g:'know',id:'k2',t:'Dr Leila Farouk',sub:'Emergency vet, Glasgow',why:'Reached final interview for your Sydney emergency role in June.',src:'email, 23 Jun',catch:'Consent was given for the Sydney role in June. Re-confirm before you approach.',run:()=>addTo(byName('Farouk'),1)},
+{g:'know',id:'k3',t:'Dr Callum Reyes',sub:'Locum emergency vet, Perth',why:'Already in Australia as a locum. Said his visa runs to February.',src:'call note, 3 Sep',catch:'His visa is yours to check. Consent on file since September.',run:()=>addTo(byName('Reyes'),1)},
+{g:'quiet',id:'p1',t:'Dr Rory Haldane',sub:'Medical Director, Singapore',why:'Held since 9 Nov. No reply in 8 days.',d:'Hi Rory, I wanted to check whether the Singapore role is still of interest. No problem if the timing’s wrong; a quick yes or no would be very helpful.',run:()=>park(byName('Haldane'))},
+{g:'quiet',id:'p2',t:'Dr Tom Eastley',sub:'Associate Veterinarian, Vancouver',why:'No reply to your note of 5 Nov (12 days).',d:'Hi Tom, just checking my note about the Vancouver role reached you. Happy to share more detail if it’s of interest, and no problem if not.',run:()=>park(byName('Eastley'))}];
+const pst={};
+const stOf=x=>pst[x.id]||(x.g!=='quiet'&&!byName(x.t.split(' ').pop()).pool?{l:'On the longlist.',auto:1}:null);
+function props(){for(const k in G){const g=G[k],items=P.filter(x=>x.g===k);
+ $(g.el).innerHTML=items.map(x=>{const s=stOf(x);return '<li><div class="prop"><div class="pt"><b>'+x.t+'</b><p>'+x.sub+'</p><p>'+x.why+(x.src?' <span class="srcx">['+x.src+']</span>':'')+'</p>'+(x.catch?'<p class="catch">'+x.catch+'</p>':'')+'</div>'
+  +(!s?'<div class="acts">'+(x.d?'<button class="btn" data-dr="'+x.id+'">'+(x.open?'Hide the draft':g.dl)+'</button>':'')+'<button class="btn y" data-yes="'+x.id+'">'+g.yes+'</button><button class="btn" data-no="'+x.id+'">'+g.no+'</button></div>':'<div class="done">'+s.l+(s.auto?'':'<button class="btn" data-ud="'+x.id+'">Undo</button>')+'</div>')
+  +(x.d&&x.open&&!s?'<div class="draft on">'+x.d+'<small>Drafted for you to edit and send. Not sent.</small></div>':'')+'</div></li>'}).join('');
+ $(g.head).textContent=g.title(items.filter(x=>!stOf(x)).length)}}
+function onProp(e){const t=e.target.closest('button');if(!t)return;const y=t.dataset.yes,n=t.dataset.no,u=t.dataset.ud,dr=t.dataset.dr;
+ if(dr){const x=P.find(q=>q.id===dr);x.open=!x.open;props();return}
+ if(y){const x=P.find(q=>q.id===y),g=G[x.g];const un=x.run();pst[y]={l:g.done,un:un};props();toast(x.t+g.toast,()=>{un();delete pst[y];props()})}
+ if(n){const x=P.find(q=>q.id===n),g=G[x.g];pst[n]={l:g.declined,un:()=>{}};log(g.logNo(x));props()}
+ if(u){pst[u].un();delete pst[u];props()}}
+$('#apps').addEventListener('click',onProp);$('#know').addEventListener('click',onProp);$('#props').addEventListener('click',onProp);
+function who(txt){const k=txt.trim().toLowerCase().replace(/^dr\.?\s+/,'');const m=C.filter(c=>c.n.toLowerCase().includes(k));if(!m.length)return null;return m.find(c=>c.n.toLowerCase().split(' ').includes(k))||(m.length===1?m[0]:null)}
+const msg=(t,ok)=>{const m=$('#cmsg');m.textContent=t;m.className='cm'+(ok?' ok':'')};
+const notYet=p=>nm(p)+' is on file but not on a role yet. Try: add '+p.n.split(' ').pop()+' to '+V[p.v].loc+'.';
+$('#cmd').onsubmit=e=>{e.preventDefault();const raw=$('#cin').value.trim();if(!raw)return;const t=raw.toLowerCase();let m;
+ if(m=t.match(/^(?:park|drop|hold)\s+(.+)$/)){const p=who(m[1]);if(!p)return msg('I couldn’t find one person called that. Try a surname.');if(p.pool)return msg(notYet(p));const u=park(p);msg('Done. '+nm(p)+' parked.',1);toast(nm(p)+' parked.',u)}
+ else if(m=t.match(/^move\s+(.+?)\s+to\s+(.+)$/)){const p=who(m[1]);if(!p)return msg('I couldn’t find one person called that. Try a surname.');if(p.pool)return msg(notYet(p));
+  if(/^park/.test(m[2])){const u=park(p);msg('Done. '+nm(p)+' parked.',1);toast(nm(p)+' parked.',u)}
+  else{const w=m[2].trim().replace(/s$/,'');const i=ST.findIndex(s=>s.toLowerCase().startsWith(w));if(i<0)return msg('Which stage? '+ST.join(', ')+'.');const u=moveTo(p,i);msg('Done. '+nm(p)+' moved to '+ST[i]+'.',1);toast(nm(p)+' moved to '+ST[i]+'.',u)}}
+ else if(m=t.match(/^add\s+(.+?)\s+to\s+(.+)$/)){const p=who(m[1]);const k=m[2].trim();const vi=V.findIndex(v=>(v.c+' '+v.r+' '+v.loc).toLowerCase().includes(k));if(!p||vi<0)return msg('Try: add Alvarez to Brisbane.');const u=addTo(p,vi);msg('Done. '+nm(p)+' added to the '+V[vi].loc+' longlist.',1);toast(nm(p)+' added.',()=>{u();props()});props()}
+ else return msg('I didn’t catch that. Try: park Eastley, or move Okafor to Interview.');
+ $('#cin').value=''};
+const tabs=$$('nav button');
+function show(t){tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));$$('.panel').forEach(p=>p.classList.toggle('on',p.id==='p-'+t));try{history.replaceState(null,'','#'+t)}catch(e){}}
+tabs.forEach((b,i)=>{b.onclick=()=>show(b.dataset.t);b.onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];n.focus();show(n.dataset.t)}}});
+$$('.btn[data-d]').forEach(b=>b.onclick=()=>{const d=document.getElementById(b.dataset.d);d.classList.toggle('on');b.textContent=d.classList.contains('on')?'Hide the draft':'See the draft'});
+$('#src').onchange=e=>$('#report').classList.toggle('on-src',e.target.checked);
+$('#hd').innerHTML=ST.map(s=>'<div class="sh">'+s+'</div>').join('');
+props();draw();
+if(['brief','pipe','rep','how'].includes(location.hash.slice(1)))show(location.hash.slice(1));
+</script>
+</body></html>
