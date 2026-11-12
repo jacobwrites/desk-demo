@@ -133,7 +133,7 @@ h2{color:var(--ink2)}
 #apps .draft,#props .draft{flex-basis:100%;margin-top:4px;background:#f0f0f0;color:#333;box-shadow:none}
 #apps .draft small,#props .draft small{color:#666}
 </style></head><body><div class="wrap">
-<header><span class="demo">Recruitment Engine · a desk assistant for recruiters. This demo runs on a made-up desk: every name, hospital and number is fictional.</span><h1>What came in.<br>Who's waiting on you.</h1></header>
+<header><span class="demo">Recruitment Engine · a desk assistant for recruiters. This demo runs on a made-up desk: every name, hospital and number is fictional.</span><h1>What came in.<br>Who to get back to.</h1></header>
 <nav role="tablist" aria-label="Demo sections">
 <button role="tab" aria-selected="true" data-t="brief" id="tb-brief">Morning brief</button>
 <button role="tab" aria-selected="false" data-t="pipe" id="tb-pipe">Pipeline</button>
@@ -141,19 +141,19 @@ h2{color:var(--ink2)}
 <button role="tab" aria-selected="false" data-t="how" id="tb-how">How it works</button></nav>
 
 <section class="panel on" id="p-brief" role="tabpanel">
-<p class="lede">Every morning at 8, and again at 6. What came in, who it matches, and who is waiting on you. It reads, drafts and flags. It never replies for you.</p>
+<p class="lede">Every morning at 8, and again at 6. What came in, who it matches, and who to get back to. It reads, drafts and flags. It never replies for you.</p>
 <h2 id="ah">New applicant</h2>
 <p class="hint">Her email arrived at 06:12. By your 8am brief it was read, filed and matched. She is on file, so it can suggest her for future roles once her consent covers it.</p>
 <ul class="today card" id="apps"></ul>
 <h2 id="kh">New role</h2>
 <p class="hint">The brief from Pinnacle Bay arrived overnight. Before you advertise, these are people already in your own emails, CVs and call notes. It suggests; nothing changes until you say yes.</p>
 <ul class="today card" id="know"></ul>
-<h2>Tuesday 17 Nov · waiting on you</h2>
+<h2>Tuesday 17 Nov · who to get back to</h2>
 <ul class="today card">
-<li><div class="row"><span class="tag">Client owed an update</span><div><b>Keppel Reach · Medical Director</b><p>Last update 7 days ago; the shortlist meeting is Friday. Consent to share is missing for two candidates.</p><button class="btn" data-d="d1">See the draft</button><div class="draft" id="d1">Hi Helen, a quick update on the Medical Director search. We have three candidates on the shortlist and one on hold, and I'll send the full shortlist report ahead of Friday. Two questions: is a candidate without budget responsibility workable for this role, and what relocation support can you offer? [questions for client]<small>Drafted for you to edit and send. Not sent.</small></div></div></div></li>
-<li><div class="row"><span class="tag">Candidate owed an answer</span><div><b>Dr Jonas Lindqvist · Medical Director, Singapore</b><p>On 11 Nov he asked what relocation support is offered. Six days on, your files show no answer to him yet.</p><button class="btn" data-d="d2">See the draft</button><div class="draft" id="d2">Hi Jonas, I haven't forgotten your question about relocation support. I'm checking with the hospital and will come back to you by [day for you to confirm].<small>Drafted for you to edit and send. Not sent.</small></div></div></div></li>
+<li><div class="row"><span class="tag">Client update due</span><div><b>Keppel Reach · Medical Director</b><p>Last update 7 days ago; the shortlist meeting is Friday. Consent to share is missing for two candidates.</p><button class="btn" data-d="d1">See the draft</button><div class="draft" id="d1">Hi Helen, a quick update on the Medical Director search. We have three candidates on the shortlist and one on hold, and I'll send the full shortlist report ahead of Friday. Two questions: is a candidate without budget responsibility workable for this role, and what relocation support can you offer? [questions for client]<small>Drafted for you to edit and send. Not sent.</small></div></div></div></li>
+<li><div class="row"><span class="tag">Candidate question to answer</span><div><b>Dr Jonas Lindqvist · Medical Director, Singapore</b><p>On 11 Nov he asked what relocation support is offered. Nothing in your files answers him yet.</p><button class="btn" data-d="d2">See the draft</button><div class="draft" id="d2">Hi Jonas, I haven't forgotten your question about relocation support. I'm checking with the hospital and will come back to you by [day for you to confirm].<small>Drafted for you to edit and send. Not sent.</small></div></div></div></li>
 <li><div class="row"><span class="tag">Replied</span><div><b>Dr Samuel Okafor · Medical Director, Singapore</b><p>Confirmed Thursday at 11:00. Not yet in your diary.</p></div></div></li></ul>
-<h2 id="ph">Gone quiet on you</h2>
+<h2 id="ph">Gone quiet</h2>
 <p class="hint">One polite chase, or park them? A chase draft is ready for each. You send it.</p>
 <ul class="today card" id="props"></ul>
 <h2>Also this morning</h2>
@@ -202,16 +202,16 @@ h2{color:var(--ink2)}
 <div class="ar">→</div>
 <div class="col"><h3>The desk team</h3>
 <div class="box ag"><span class="n">1</span><div><b>Reader</b><p>Reads CVs, emails and call transcripts. Writes up each candidate, fact by fact. Gaps stay gaps.</p></div></div>
-<div class="box ag"><span class="n">2</span><div><b>Clerk</b><p>Keeps one file per role and the pipeline current. Matches each new CV to your open roles, and each new role to the people on file. Spots who is waiting on you, who has gone quiet and whose consent is missing. Writes your brief.</p></div></div>
+<div class="box ag"><span class="n">2</span><div><b>Clerk</b><p>Keeps one file per role and the pipeline current. Matches each new CV to your open roles, and each new role to the people on file. Spots who needs a reply from you, who has gone quiet and whose consent is missing. Writes your brief.</p></div></div>
 <div class="box ag"><span class="n">3</span><div><b>Researcher</b><p>Target companies, org maps and pay benchmarks from public sources, each one cited.</p></div></div>
 <div class="box ag"><span class="n">4</span><div><b>Drafter</b><p>Shortlist reports, client updates and draft chases, in your style. Every fact tagged to its source.</p></div></div></div>
 <div class="ar">→</div>
-<div class="col"><h3>What you get</h3><div class="box"><b>Brief, 8am and 6pm</b><p>What came in, and who is waiting on you</p></div><div class="box"><b>Pipeline page</b><p>Every role at a glance</p></div><div class="box"><b>Drafts to edit</b><p>Reports, updates, chases</p></div><div class="box you"><b>You</b><p>Read, change, approve, send. Only you contact anyone.</p></div></div></div>
+<div class="col"><h3>What you get</h3><div class="box"><b>Brief, 8am and 6pm</b><p>What came in, and who to get back to</p></div><div class="box"><b>Pipeline page</b><p>Every role at a glance</p></div><div class="box"><b>Drafts to edit</b><p>Reports, updates, chases</p></div><div class="box you"><b>You</b><p>Read, change, approve, send. Only you contact anyone.</p></div></div></div>
 <h2>What it is, and what it isn't</h2>
-<div class="two"><div class="card"><b>It does</b><ul><li>Matches new CVs to open roles, and new roles to people on file</li><li>Reads and files CVs and call notes</li><li>Keeps each role and the pipeline current</li><li>Flags who is waiting on you, who has gone quiet, and missing consent</li><li>Drafts documents and emails for you to edit</li><li>Keeps a note of your corrections and applies them</li><li>Researches companies and pay from public sources</li></ul></div>
+<div class="two"><div class="card"><b>It does</b><ul><li>Matches new CVs to open roles, and new roles to people on file</li><li>Reads and files CVs and call notes</li><li>Keeps each role and the pipeline current</li><li>Flags who needs a reply, who has gone quiet, and missing consent</li><li>Drafts documents and emails for you to edit</li><li>Keeps a note of your corrections and applies them</li><li>Researches companies and pay from public sources</li></ul></div>
 <div class="card no"><b>It never</b><ul><li>Sends an email or message</li><li>Contacts a candidate or a client</li><li>Searches or scrapes LinkedIn</li><li>Makes a decision about a person. It suggests; you decide</li><li>Replaces your CRM. It sits beside whatever you use</li></ul></div></div>
 <p class="foot">What it can't see: WhatsApp, LinkedIn messages, and anything that isn't written down.</p>
-<p class="foot" style="margin-top:8px">Candidate files stay on your computer. Text is processed by Claude under your own account to do the work.</p>
+<p class="foot" style="margin-top:8px">Candidate files stay on your computer. Text is processed by Claude under your own account to do the work. So far it has only been run on Gmail on a Mac; anything else gets tested first.</p>
 </section>
 </div>
 <div id="toast" role="status"><span id="tt"></span><button id="tu">Undo</button></div>
@@ -220,12 +220,12 @@ const ST=['Brief','Longlist','Approached','Shortlist','Interview','Offer'];
 const $=q=>document.querySelector(q),$$=q=>[...document.querySelectorAll(q)],ini=n=>n.split(' ').map(x=>x[0]).join('');
 const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const V=[
-{c:'Keppel Reach Veterinary Specialists',r:'Medical Director',loc:'Singapore',kind:'retained',base:3,up:7,due:'Shortlist meeting Fri 20 Nov',f:'Client update overdue'},
+{c:'Keppel Reach Veterinary Specialists',r:'Medical Director',loc:'Singapore',kind:'retained',base:3,up:7,due:'Shortlist meeting Fri 20 Nov',f:'Client update due'},
 {c:'Pinnacle Bay Emergency Vets',r:'Emergency Veterinarian',loc:'Brisbane',kind:'contingent',base:0,up:0,upText:'Brief arrived overnight',due:'Nothing advertised yet',f:'New role'},
 {c:'Alder Inlet Veterinary Clinic',r:'Associate Veterinarian',loc:'Vancouver',kind:'contingent',base:2,up:4,due:'CVs due 24 Nov',f:'No reply from your approach in 12 days'},
 {c:'Lantern Peak Veterinary Referrals',r:'Head of Nursing',loc:'Hong Kong',kind:'retained',base:4,up:1,due:'Panel Wed 18 Nov',f:''}];
 let C=[
-{n:'Amara Marlowe',dr:1,v:0,st:3,q:0,now:'Medical Director, 24-hour emergency and referral hospital, Melbourne',status:'Last contact 12 Nov (call)',next:'Client meeting w/c 23 Nov',note:'Open to Singapore; wants school places for two children. Consent to share not yet recorded.'},
+{n:'Amara Marlowe',dr:1,v:0,st:3,q:0,now:'Medical Director, 24-hour emergency and referral hospital, Melbourne',status:'Last contact 12 Nov (call)',next:'Client interview w/c 23 Nov',note:'Open to Singapore; wants school places for two children. Consent to share not yet recorded.'},
 {n:'Samuel Okafor',dr:1,v:0,st:3,q:0,now:'Clinical Director, multi-specialty referral centre, UK',status:'Last contact 16 Nov (email)',next:'Second call Thu 19 Nov, 11:00',note:'Opened a second hospital site. Partner would need a visa. Consent recorded.'},
 {n:'Jonas Lindqvist',dr:1,v:0,st:3,q:0,now:'Head of Emergency and Critical Care, university hospital, Sweden',status:'Last contact 11 Nov (email). His question is unanswered',next:'Answer his relocation question',note:'Asked what relocation support is offered. Consent not yet recorded.'},
 {n:'Rory Haldane',dr:1,v:0,st:2,q:8,held:1,now:'Sold his three-hospital group in 2025, Auckland',status:'Held. Last contact 9 Nov, no reply',next:'Chase once or park',note:'Owner-operator; has not worked inside a larger group.'},
@@ -276,7 +276,7 @@ const G={
   title:n=>'New role · Emergency Veterinarian, Brisbane · '+(n?n+(n===1?' person':' people')+' you already know':'all dealt with')},
  quiet:{el:'#props',head:'#ph',yes:'Park',no:'Not yet',dl:'See the chase draft',done:'Parked.',declined:'Noted. It won’t suggest this again for 14 days.',toast:' parked.',
   logNo:x=>'You kept '+x.t+' on the role. It will not suggest parking again for 14 days.',
-  title:n=>'Gone quiet on you · '+(n?n+' waiting':'all dealt with')}};
+  title:n=>'Gone quiet · '+(n?n+' to chase or park':'all dealt with')}};
 const P=[
 {g:'app',id:'a1',t:'Dr Priya Nair',sub:'Small-animal vet, four years qualified, Cape Town',why:'Emailed about your Vancouver role, CV attached. She saw the advert on LinkedIn.',src:'email and CV, today',catch:'Her CV doesn’t say whether she can work in Canada.',d:'Hi Priya, thank you for getting in touch about the Vancouver role, and for sending your CV. Could we find twenty minutes for a call this week? [times for you to add]',run:()=>addTo(byName('Nair'),2)},
 {g:'know',id:'k1',t:'Dr Sian Alvarez',sub:'Emergency vet, 24-hour hospital, Leeds',why:'Told you in March she wants to move to Australia.',src:'call note, 12 Mar',catch:'Consent is 8 months old. Re-confirm before you approach.',run:()=>addTo(byName('Alvarez'),1)},
